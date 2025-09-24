@@ -1,0 +1,46 @@
+// C++ code
+//
+
+const int my_analog_pin = A0;
+int ADC_val;
+int led = 13;
+
+void setup()
+{
+  Serial.begin(115200);
+  pinMode(led, 13);
+  pinMode (my_analog_pin, INPUT);
+}
+
+void loop()
+{
+ 
+  ADC_val = analogRead(my_analog_pin);
+  Serial.print(ADC_val);
+  
+  
+ int output_value = map (ADC_val, 0, 1023, 0, 255);
+  
+  Serial.print (", Output value: ");
+  Serial.println (output_value);
+  
+
+  
+  if (output_value < 220 && output_value > 200) {
+    
+    digitalWrite (led, HIGH);
+    delay(250);
+    digitalWrite (led, LOW);
+    delay(250);
+    
+  }
+  else if (output_value > 230){
+    digitalWrite(led, LOW);
+  }
+  else {
+     analogWrite(led, output_value);
+  }
+  
+ 
+
+}
